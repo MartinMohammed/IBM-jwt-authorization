@@ -1,0 +1,42 @@
+### Access token must be provided, because it is a protected route
+GET http://localhost:3001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE2ODk2ODU0MjMsImV4cCI6MTY4OTY5MjYyMywiYXVkIjoiZXhhbXBsZS5jb20iLCJpc3MiOiJtYXJ0aW4tbW9oYW1tZWQuaW5mbyIsInN1YiI6IjY0YjY4ZGFmYmIyNjgzZTI5OTg5YjYwZSJ9.x0SWHqujAoES-eYZ3vhMzQst0dxxgACuqiJT09x5WtI
+
+
+### Register Route
+POST http://localhost:3001/auth/register
+Content-Type: application/json
+
+{
+    "email": "martin@info.net",
+    "password": "1234"
+}
+
+
+
+### Login Route
+POST http://localhost:3001/auth/login
+Content-Type: application/json
+
+{
+    "email": "martin-mohammed@info.net",
+    "password": "1234"
+}
+
+
+
+### Refresh token route - to generate a new pair of tokens
+POST http://localhost:3001/auth/refresh-token
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJyZWZyZXNoLXRva2VuIiwiaWF0IjoxNjg5Njg1NDQwLCJleHAiOjE3MjEyNDMwNDAsImF1ZCI6ImV4YW1wbGUuY29tIiwiaXNzIjoibWFydGluLW1vaGFtbWVkLmluZm8iLCJzdWIiOiI2NGI2NTI1Njk3NTA3M2ZmMjY1MDQzNDAifQ.4BlrDNt0FaYKkaKsXfdNIA96nBh9FViF2qxyvhzTIG8"
+}
+
+### Logout route 
+DELETE http://localhost:3001/auth/logout
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJyZWZyZXNoLXRva2VuIiwiaWF0IjoxNjg5Njg1NDYwLCJleHAiOjE3MjEyNDMwNjAsImF1ZCI6ImV4YW1wbGUuY29tIiwiaXNzIjoibWFydGluLW1vaGFtbWVkLmluZm8iLCJzdWIiOiI2NGI2NTI1Njk3NTA3M2ZmMjY1MDQzNDAifQ.IVYe9Cty_hahDlA2XrOX9-1WiTFZxCE6FitFq7mhl5c"
+}
