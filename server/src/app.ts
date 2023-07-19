@@ -3,12 +3,11 @@ import "dotenv/config";
 import notFoundError from "./middlewares/notFoundError";
 import errorHandler from "./middlewares/errorHandler";
 import morgan from "morgan";
-import authRouter from "./routers/auth";
+import authRouter from "./routers/authRouter";
 import cors from "cors";
 import fs from "fs";
 import path from "path";
 import verifyAccessToken from "./middlewares/verifyAccessToken";
-import RedisClientWrapper from "./utils/initRedis";
 import healthRouter from "./routers/healthRouter";
 const app = express();
 

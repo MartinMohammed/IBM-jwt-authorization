@@ -4,8 +4,8 @@
   "description": "",
   "main": "./dist/server.js",
   "scripts": {
-    "test": "vitest --config ./vitest.config.js --no-watch",
-    "test:watch": "vitest --config ./vitest.config.js",
+    "test": "jest --colors",
+    "test:watch": "concurrently  \"npm:build:watch\" \"jest --config ./jest.config.js --colors  --watchAll\"", 
     "build": "tsc",
     "build:watch": "tsc --watch",
     "start": "node ./dist/server.js",
@@ -24,6 +24,7 @@
     "@types/jsonwebtoken": "^9.0.2",
     "@types/ms": "^0.7.31",
     "@types/node": "^20.4.2",
+    "@types/supertest": "^2.0.12",
     "i": "^0.3.7",
     "nodemon": "^3.0.1",
     "npm": "^9.8.0",
@@ -31,6 +32,7 @@
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
+    "@types/jest": "^29.5.3",
     "@types/morgan": "^1.9.4",
     "bcrypt": "^5.1.0",
     "concurrently": "^8.2.0",
@@ -38,11 +40,13 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "http-errors": "^2.0.0",
+    "jest": "^29.6.1",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.3.4",
     "morgan": "^1.10.0",
     "ms": "^2.1.3",
     "redis": "^4.6.7",
+    "supertest": "^6.3.3",
     "uglify-js": "^3.17.4",
     "winston": "^3.10.0"
   }

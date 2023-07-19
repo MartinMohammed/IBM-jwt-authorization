@@ -19,6 +19,7 @@ UserSchema.pre("save", async function (next) {
     this.password = await bHash(this.password, 12);
 
     // Call `next()` to continue with the saving process
+
     next();
   } catch (error) {
     // Handle any errors that occurred during the pre-save middleware

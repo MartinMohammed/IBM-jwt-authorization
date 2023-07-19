@@ -1,10 +1,4 @@
-import {
-  createClient,
-  RedisClientOptions,
-  RedisModules,
-  RedisFunctions,
-  RedisScripts,
-} from "redis";
+import { createClient } from "redis";
 import logger from "../logger";
 
 /** The RedisClientWrapper class acts as a wrapper for the Redis client, implementing the singleton pattern. */

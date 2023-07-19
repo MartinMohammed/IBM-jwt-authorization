@@ -30,7 +30,7 @@ services:
     volumes: 
       - ./server/data/mongodb:/data/db
     environment:
-      MONGO_INITDB_DATABASE: admin
+      MONGO_INITDB_DATABASE: auth
     ports:
       - 27017:27017
   

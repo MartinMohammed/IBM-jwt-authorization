@@ -1,6 +1,6 @@
 import authSchema from "../utils/validation/authSchema";
 import createHttpError from "http-errors";
-import { HydratedDocument } from "mongoose";
+import mongoose, { HydratedDocument } from "mongoose";
 import User from "../models/User";
 import { generateSignedAccessToken, verifyRefreshToken } from "../utils/jwt";
 import IUser from "../customTypes/User";
@@ -26,6 +26,7 @@ const register = async (
     }
     // Create the new user and store it into db..
     const savedUser: HydratedDocument<IUser> = await new User(result).save();
+
     let accessToken = null;
     let refreshToken = null;
     try {
@@ -44,6 +45,11 @@ const register = async (
       // In case the function rejects the promise
       return next(error);
     }
+
+    ({
+      accessToken,
+      refreshToken,
+    });
     res.json({ accessToken, refreshToken });
   } catch (error) {
     if ((error as { isJoi?: boolean; status?: number }).isJoi === true) {
@@ -97,7 +103,10 @@ const login = async (
     } catch (error) {
       return next(error);
     }
-
+    ({
+      accessToken: newAccessToken,
+      refreshToken: newRefreshToken,
+    });
     res.status(200).json({
       accessToken: newAccessToken,
       refreshToken: newRefreshToken,
@@ -110,6 +119,40 @@ const login = async (
       );
     }
     return next(error);
+  }
+};
+
+const refreshToken = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    // Extract the refresh token from the body
+    const { refreshToken } = req.body;
+    if (!refreshToken) {
+      // Token is not present
+      throw createHttpError.BadRequest("No refreshToken was attached to body.");
+    }
+    // Verify refresh token - it will throw an error if the token is not valid.
+    const userId = await verifyRefreshToken(refreshToken);
+
+    /** Generate a new pair of tokens */
+    const newAccessToken = await generateSignedAccessToken(
+      userId,
+      "access-token"
+    );
+
+    const newRefreshToken = await generateSignedAccessToken(
+      userId,
+      "refresh-token"
+    );
+    res.json({
+      accessToken: newAccessToken,
+      refreshToken: newRefreshToken,
+    });
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -131,46 +174,12 @@ const logout = async (
 
     // Delete the refresh token of the user in the redis db.
     await RedisClientWrapper.getInstance().client.DEL(userId);
-    logger.info(`User ${userId} was successfully logged out.`);
+    logger.silly(`User ${userId} was successfully logged out.`);
 
     // Request succeeded.
     res.sendStatus(204);
   } catch (error) {
     return next(error);
-  }
-};
-
-const refreshToken = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
-  try {
-    // Extract the refresh token from the body
-    const { refreshToken } = req.body;
-    if (!refreshToken) {
-      // Token is not present
-      throw createHttpError.BadRequest();
-    }
-    // Verify refresh token - it will throw an error if the token is not valid.
-    const userId = await verifyRefreshToken(refreshToken);
-
-    /** Generate a new pair of tokens */
-    const newAccessToken = await generateSignedAccessToken(
-      userId,
-      "access-token"
-    );
-
-    const newRefreshToken = await generateSignedAccessToken(
-      userId,
-      "refresh-token"
-    );
-    res.json({
-      accessToken: newAccessToken,
-      refreshToken: newRefreshToken,
-    });
-  } catch (error) {
-    next(error);
   }
 };
 

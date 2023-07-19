@@ -8,7 +8,7 @@ POST http://localhost:3001/auth/register
 Content-Type: application/json
 
 {
-    "email": "martin@info.net",
+    "email": "martinaa@info.net",
     "password": "1234"
 }
 
@@ -30,7 +30,7 @@ POST http://localhost:3001/auth/refresh-token
 Content-Type: application/json
 
 {
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJyZWZyZXNoLXRva2VuIiwiaWF0IjoxNjg5NzcyNzkxLCJleHAiOjE3MjEzMzAzOTEsImF1ZCI6ImV4YW1wbGUuY29tIiwiaXNzIjoibWFydGluLW1vaGFtbWVkLmluZm8iLCJzdWIiOiI2NGI3ZTJiYWE0NzNkZTc2YWEyNDZiODEifQ.Ncprr5OGPH9JjxAe1iGHJ3HxE0N2Kobj1hGRog8Oq4U"
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJyZWZyZXNoLXRva2VuIiwiaWF0IjoxNjg5NzgyODc3LCJleHAiOjE3MjEzNDA0NzcsImF1ZCI6ImV4YW1wbGUuY29tIiwiaXNzIjoibWFydGluLW1vaGFtbWVkLmluZm8iLCJzdWIiOiI2NGI4MGE1ZDQwMDA1MjlmMTcyMWRlYTcifQ.VXJVpc4LSk_MG-S4qHxMpoXVOG0ZZ6A7FJ9AnSzWl2E"
 }
 
 ### Logout route 

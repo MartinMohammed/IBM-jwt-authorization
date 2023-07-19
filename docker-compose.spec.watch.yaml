@@ -4,15 +4,17 @@ services:
     container_name: server
     build: 
       context: ./server
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile.dev
     ports: 
       - 3001:3001
     volumes: 
-      - ./server/dist:/home/nodeUser/app/dist:rw
+      - ./server/src:/home/nodeUser/app/src:rw
       - ./server/logs:/home/nodeUser/app/logs:rw
     depends_on: 
       - redis
       - mongodb
+    command: |
+      sh -c "npm run test:watch"
   redis:
     image: redis:6.2-alpine
     container_name: redis
@@ -21,14 +23,10 @@ services:
       - 6379:6379
     # This one will save a snapshot of the DB every 20 seconds if at least 1 write operation was performe
     command: redis-server --save 20 1 --loglevel warning
-    volumes: 
-      - ./server/data/redis:/data
   mongodb:
     container_name: mongodb
     image: mongo
     restart: always
-    volumes: 
-      - ./server/data/mongodb:/data/db
     environment:
       MONGO_INITDB_DATABASE: auth
     ports:
