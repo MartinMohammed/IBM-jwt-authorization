@@ -2,4 +2,3 @@
 .dockerignore
 Dockerfile
 docker-compose.yaml
-docker-compose.spec.yaml
