@@ -1,22 +1,53 @@
-FROM node:16-alpine
+# Stage 1: Build the application
+FROM node:16-alpine AS builder
 
-RUN adduser -D nodeUser
+# Set working directory in the builder stage
 WORKDIR /home/nodeUser/app
 
-# Create a seperate dir for logs
-RUN mkdir logs
+# Copy package files to the builder stage
+COPY package*.json ./
 
-
-# Every command afterwards as well as interactive sessions will be executed as user nodeUser
-COPY ./package*.json ./
+# Install project dependencies based on locked versions
 RUN npm ci
 
-COPY .env .
+# Copy the remaining project files to the builder stage
+COPY . .
 
+# Build the application
+RUN npm run build
+
+# Stage 2: Create the final image
+FROM node:16-alpine
+
+# Set working directory in the final image
+WORKDIR /home/nodeUser/app
+
+# Copy the built application from the builder stage to the final image
+COPY --from=builder /home/nodeUser/app/dist ./dist
+
+# Copy package files from the builder stage to the final image
+COPY --from=builder /home/nodeUser/app/package*.json ./
+
+# Copy the .env file from the builder stage to the final image
+COPY --from=builder /home/nodeUser/app/.env ./
+
+# Create a directory for logs
+RUN mkdir ./logs
+
+# Remove unnecessary test files from the final image
+RUN rm -rf ./dist/test
+
+# Install only production dependencies in the final image
+RUN npm ci --omit=dev
+
+# Add a new user named nodeUser in the final image
+RUN adduser -D nodeUser
+
+# Change ownership of the /home/nodeUser directory and its contents to the nodeUser user
 RUN chown -R nodeUser:nodeUser /home/nodeUser
 
+# Switch to the nodeUser user
 USER nodeUser
 
-COPY ./ ./
-
-CMD ["npm", "run", "dev"]
+# Specify the default command to start the application
+CMD ["npm", "run", "start"]

@@ -1,0 +1,5 @@
+# Related to docker
+.dockerignore
+Dockerfile
+docker-compose.yaml
+docker-compose.spec.yaml

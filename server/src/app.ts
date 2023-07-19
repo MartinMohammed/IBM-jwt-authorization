@@ -9,6 +9,7 @@ import fs from "fs";
 import path from "path";
 import verifyAccessToken from "./middlewares/verifyAccessToken";
 import RedisClientWrapper from "./utils/initRedis";
+import healthRouter from "./routers/healthRouter";
 const app = express();
 
 app.use(cors());
@@ -23,6 +24,7 @@ app.use(morgan("combined", { stream: accessLogStream }));
 app.get("/", verifyAccessToken, async (req, res, next) => {
   res.send("Hello From express.");
 });
+app.use("/health", healthRouter);
 
 app.use("/auth", authRouter);
 
