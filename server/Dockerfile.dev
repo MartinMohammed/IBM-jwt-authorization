@@ -15,6 +15,7 @@ RUN npm ci
 
 # Copy the remaining project files to the builder stage
 COPY . .
+RUN npm run build
 
 # Specify the command to run during the build process
 CMD ["npm", "run", "dev:concurrent"]

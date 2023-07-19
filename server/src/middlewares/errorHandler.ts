@@ -19,7 +19,7 @@ function errorHandler(
   res.status(err.status || 500);
   res.json({
     error: {
-      status: err.status || 500,
+      statusCode: err.status || 500,
       message: err.message,
     },
   });
