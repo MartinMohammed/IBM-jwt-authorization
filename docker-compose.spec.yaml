@@ -13,6 +13,7 @@ services:
     depends_on: 
       - redis
       - mongodb
+    env_file: "./server/.env"
     command: |
       sh -c "npm run test"
   redis:
@@ -28,7 +29,7 @@ services:
     image: mongo
     restart: always
     environment:
-      MONGO_INITDB_DATABASE: auth
+      MONGO_INITDB_DATABASE: gymDo
     ports:
       - 27017:27017
   

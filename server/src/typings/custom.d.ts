@@ -22,9 +22,18 @@ declare namespace NodeJS {
     DB_NAME: string;
 
     /**
-     * Represents the initially created database
-     * */
-    MONGO_INITDB_DATABASE: string;
+     * The username used to connect to mongo db on mongo atlas
+     */
+    MONGO_ATLAS_DB_USERNAME: string;
+
+    /**
+     * The password used to connect to mongo db on mongo atlas
+     */
+    MONGO_ATLAS_DB_PASSWORD: string;
+    /**
+     * Represents the db name
+     */
+    MONGO_ATLAS_DB_NAME: string;
 
     /**
      * Represents the secret that is used to create the
@@ -47,5 +56,10 @@ declare namespace NodeJS {
      * Port of the redis db
      */
     REDIS_PORT: string;
+
+    /**
+     * Undefined -> development
+     */
+    NODE_ENV: "production" | "test" | undefined;
   }
 }

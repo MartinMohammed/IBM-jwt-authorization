@@ -1,17 +1,17 @@
 import { CallbackError, HydratedDocument, Schema, model } from "mongoose";
-import IUser from "../customTypes/User";
+import IEmployee from "../customTypes/Employee";
 import logger from "../logger";
 import bycrypt from "bcrypt";
 import bHash from "../utils/bHash";
 
 // 2. Create a Schema corresponding to the document interface.
-const UserSchema = new Schema<IUser>({
+const EmployeeSchema = new Schema<IEmployee>({
   email: { type: String, required: true, lowercase: true, unique: true },
   password: { type: String, required: true, min: 4 },
 });
 
 // Define the pre-save middleware function
-UserSchema.pre("save", async function (next) {
+EmployeeSchema.pre("save", async function (next) {
   // `this` refers to the document being saved
 
   try {
@@ -34,7 +34,7 @@ UserSchema.pre("save", async function (next) {
 });
 
 /** Add custom methods to the UserSchema  */
-UserSchema.methods.isValidPassword = async function (
+EmployeeSchema.methods.isValidPassword = async function (
   password: string
 ): Promise<boolean> {
   /** Extract the generated salt in the password hash and the workload rounds. */
@@ -47,5 +47,5 @@ UserSchema.methods.isValidPassword = async function (
 };
 
 // 3. Create a Model.
-const User = model<IUser>("user", UserSchema);
-export default User;
+const Employee = model<IEmployee>("employee", EmployeeSchema);
+export default Employee;

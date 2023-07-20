@@ -15,6 +15,7 @@ COPY . .
 
 # Build the application
 RUN npm run build
+RUN npm run minify
 
 # Stage 2: Create the final image
 FROM node:16-alpine
@@ -28,8 +29,7 @@ COPY --from=builder /home/nodeUser/app/dist ./dist
 # Copy package files from the builder stage to the final image
 COPY --from=builder /home/nodeUser/app/package*.json ./
 
-# Copy the .env file from the builder stage to the final image
-COPY --from=builder /home/nodeUser/app/.env ./
+ENV NODE_ENV="production"
 
 # Create a directory for logs
 RUN mkdir ./logs

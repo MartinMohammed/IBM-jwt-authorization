@@ -1,5 +1,5 @@
 import mongoose, { HydratedDocument } from "mongoose";
-import User from "../../models/User";
+import Employee from "../../models/Employee";
 import demoUser from "../data/demoUser";
 import supertest from "supertest";
 import app from "../../app";
@@ -9,11 +9,11 @@ import initMongoDb from "../../utils/initMongoDb";
 import RedisClientWrapper from "../../utils/initRedis";
 import ms from "ms";
 import logger from "../../logger";
-import IUser from "../../customTypes/User";
+import IEmployee from "../../customTypes/Employee";
 import jwt, { SignOptions } from "jsonwebtoken";
 describe("Testing the auth router: ", () => {
   let redisClient: ReturnType<typeof createClient> | null;
-  let userRefOfInitialUser: HydratedDocument<IUser>;
+  let userRefOfInitialUser: HydratedDocument<IEmployee>;
   let refreshTokenOfInitialUser: string;
   let accessTokenOfInitialUser: string;
 
@@ -31,7 +31,7 @@ describe("Testing the auth router: ", () => {
 
   beforeEach(async () => {
     // Create a demo user in the database
-    userRefOfInitialUser = await new User(demoUser).save();
+    userRefOfInitialUser = await new Employee(demoUser).save();
 
     // Ensure that the user reference is not null (user creation was successful)
     expect(userRefOfInitialUser).not.toBeNull();
@@ -95,7 +95,7 @@ describe("Testing the auth router: ", () => {
       expect(refreshToken).not.toBeUndefined();
 
       // Check if the user was created in the database
-      const expectedUser = await User.findOne({ email: newDemoUser.email });
+      const expectedUser = await Employee.findOne({ email: newDemoUser.email });
       expect(expectedUser).not.toBeNull();
 
       // Store the refresh token for future use
@@ -233,7 +233,7 @@ describe("Testing the auth router: ", () => {
       expect(refreshTokenOfInitialUser).not.toBe(newRefreshToken);
 
       // Check if the refresh token was overwritten in Redis
-      const userRef = await User.findOne({ email: demoUser.email });
+      const userRef = await Employee.findOne({ email: demoUser.email });
       expect(userRef).not.toBeNull();
       const overwrittenRefreshToken = await redisClient?.GET(userRef?.id);
       expect(overwrittenRefreshToken).not.toBe(refreshTokenOfInitialUser);
@@ -276,7 +276,7 @@ describe("Testing the auth router: ", () => {
       expect(newRefreshToken).not.toBe(registerRefreshToken);
 
       // Check if the refresh token in Redis is overridden
-      const expectedUser = await User.findOne({ email: newDemouser.email });
+      const expectedUser = await Employee.findOne({ email: newDemouser.email });
       const expectedNewRefreshToken = await redisClient?.GET(expectedUser?.id);
       expect(expectedNewRefreshToken).toBe(newRefreshToken);
     });
@@ -401,7 +401,7 @@ describe("Testing the auth router: ", () => {
   });
 
   afterEach(async () => {
-    await User.deleteMany({});
+    await Employee.deleteMany({});
   });
 
   afterAll(async () => {

@@ -8,7 +8,7 @@ POST http://localhost:3001/auth/register
 Content-Type: application/json
 
 {
-    "email": "martinaa@info.net",
+    "email": "martin-mohammed@info.net",
     "password": "1234"
 }
 
@@ -19,7 +19,7 @@ POST http://localhost:3001/auth/login
 Content-Type: application/json
 
 {
-    "email": "martinaa@info.net",
+    "email": "martin-mohammed@info.net",
     "password": "1234"
 }
 
@@ -38,5 +38,5 @@ DELETE http://localhost:3001/auth/logout
 Content-Type: application/json
 
 {
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJyZWZyZXNoLXRva2VuIiwiaWF0IjoxNjg5NzcyNzk4LCJleHAiOjE3MjEzMzAzOTgsImF1ZCI6ImV4YW1wbGUuY29tIiwiaXNzIjoibWFydGluLW1vaGFtbWVkLmluZm8iLCJzdWIiOiI2NGI3ZTJiYWE0NzNkZTc2YWEyNDZiODEifQ.7qKmzPUJ62IVqA0uEhGHdaM4rJGEkcIpTqT30IIQe4M"
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlblR5cGUiOiJyZWZyZXNoLXRva2VuIiwiaWF0IjoxNjg5ODU4NDgzLCJleHAiOjE3MjE0MTYwODMsImF1ZCI6ImV4YW1wbGUuY29tIiwiaXNzIjoibWFydGluLW1vaGFtbWVkLmluZm8iLCJzdWIiOiI2NGI5MzBlOWQyMDlhMTYzMTA2ZDM1OGQifQ.mx__svLNdkryfofndSpr8e39bnU3fQkofrwxahU9pPc"
 }

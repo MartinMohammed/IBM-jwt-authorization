@@ -8,11 +8,10 @@ services:
     ports: 
       - 3001:3001
     volumes: 
-      - ./server/dist:/home/nodeUser/app/dist:rw
       - ./server/logs:/home/nodeUser/app/logs:rw
     depends_on: 
       - redis
-      - mongodb
+    env_file: "./server/.env"
   redis:
     image: redis:6.2-alpine
     container_name: redis
@@ -23,14 +22,4 @@ services:
     command: redis-server --save 20 1 --loglevel warning
     volumes: 
       - ./server/data/redis:/data
-  mongodb:
-    container_name: mongodb
-    image: mongo
-    restart: always
-    volumes: 
-      - ./server/data/mongodb:/data/db
-    environment:
-      MONGO_INITDB_DATABASE: auth
-    ports:
-      - 27017:27017
   

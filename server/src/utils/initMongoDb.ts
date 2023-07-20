@@ -7,7 +7,13 @@ import logger from "../logger";
 async function initMongoDb() {
   try {
     // Connect to MongoDB using the provided connection URI and options
-    await mongoose.connect(`${process.env.MONGO_URI}/${process.env.DB_NAME}`);
+    let mongoUri: string;
+    if (process.env.NODE_ENV !== "production") {
+      mongoUri = `mongodb://mongodb:27017/${process.env.MONGO_ATLAS_DB_NAME}`;
+    } else {
+      mongoUri = `mongodb+srv://${process.env.MONGO_ATLAS_DB_USERNAME}:${process.env.MONGO_ATLAS_DB_PASSWORD}@cluster0.pqvdc.mongodb.net/${process.env.MONGO_ATLAS_DB_NAME}?retryWrites=true&w=majority`;
+    }
+    await mongoose.connect(mongoUri);
   } catch (error) {
     logger.error(`Failed to establish MongoDB connection: ${error}.`);
   }

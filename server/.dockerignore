@@ -1,5 +1,6 @@
 # Miscallaneous 
 scripts
+.env
 
 # Docker volumes
 ./data

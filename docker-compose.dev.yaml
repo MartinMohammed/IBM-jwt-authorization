@@ -13,6 +13,7 @@ services:
     depends_on: 
       - redis
       - mongodb
+    env_file: "./server/.env"
   redis:
     image: redis:6.2-alpine
     container_name: redis
@@ -30,7 +31,7 @@ services:
     volumes: 
       - ./server/data/mongodb:/data/db
     environment:
-      MONGO_INITDB_DATABASE: auth
+      MONGO_INITDB_DATABASE: gymDo
     ports:
       - 27017:27017
   

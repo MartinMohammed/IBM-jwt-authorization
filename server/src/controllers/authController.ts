@@ -1,9 +1,9 @@
 import authSchema from "../utils/validation/authSchema";
 import createHttpError from "http-errors";
 import mongoose, { HydratedDocument } from "mongoose";
-import User from "../models/User";
+import Employee from "../models/Employee";
 import { generateSignedAccessToken, verifyRefreshToken } from "../utils/jwt";
-import IUser from "../customTypes/User";
+import IEmployee from "../customTypes/Employee";
 import express from "express";
 import logger from "../logger";
 import RedisClientWrapper from "../utils/initRedis";
@@ -18,14 +18,16 @@ const register = async (
     const result = await authSchema.validateAsync(req.body);
 
     // Check if the user does already exists.
-    const userRef = await User.findOne({ email: result.email }).exec();
+    const userRef = await Employee.findOne({ email: result.email }).exec();
     if (userRef !== null) {
       throw createHttpError.Conflict(
         `${result.email} is already been registered.`
       );
     }
     // Create the new user and store it into db..
-    const savedUser: HydratedDocument<IUser> = await new User(result).save();
+    const savedUser: HydratedDocument<IEmployee> = await new Employee(
+      result
+    ).save();
 
     let accessToken = null;
     let refreshToken = null;
@@ -74,7 +76,7 @@ const login = async (
     const result = await authSchema.validateAsync(req.body);
 
     // Check if the user already exists
-    const userRef = await User.findOne({ email: result.email }).exec();
+    const userRef = await Employee.findOne({ email: result.email }).exec();
     if (!userRef) {
       throw createHttpError.NotFound(`User not registered.`);
     }
