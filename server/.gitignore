@@ -1,10 +1,6 @@
 # Miscallaneous 
 scripts
 
-
-# Docker volumes 
-data
-
 # Logs
 logs
 *.log
