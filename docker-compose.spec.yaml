@@ -13,7 +13,13 @@ services:
     depends_on: 
       - redis
       - mongodb
-    env_file: "./server/.env"
+    environment:
+      - PORT=3001
+      - JWT_SIGNING_KEY=KalxrIEUI44sozcCMHtItVpmelSn3vKd
+      - REFRESH_TOKEN_KEY=?`?p#|+i%S4#Wv*aw3M"@lKSWp?tb0
+      - MONGO_ATLAS_DB_NAME=gymDo
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     command: |
       sh -c "npm run test"
   redis:
