@@ -7,7 +7,7 @@ import bHash from "../utils/bHash";
 // 2. Create a Schema corresponding to the document interface.
 const UserSchema = new Schema<IUser>({
   email: { type: String, required: true, lowercase: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String, required: true, min: 4 },
 });
 
 // Define the pre-save middleware function
@@ -26,7 +26,7 @@ UserSchema.pre("save", async function (next) {
     // ...
 
     logger.error(
-      `A error occurred in the pre-save middleware trying to hash the password of the user.`
+      `An error occurred in the pre-save middleware while trying to hash the user's password.`
     );
     // Call `next()` with the error to stop the saving process
     next(error as CallbackError);

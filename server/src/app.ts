@@ -9,10 +9,13 @@ import fs from "fs";
 import path from "path";
 import verifyAccessToken from "./middlewares/verifyAccessToken";
 import healthRouter from "./routers/healthRouter";
+import swaggerRouter from "./routers/swaggerRouter";
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("/api-docs", swaggerRouter);
 
 const accessLogStream = fs.createWriteStream(
   path.join(__dirname, "../logs/access.log"),
