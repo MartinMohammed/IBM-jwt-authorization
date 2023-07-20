@@ -1,5 +1,5 @@
 # Docker volumes
-data
+/data/
 
 # Miscallaneous 
 scripts
