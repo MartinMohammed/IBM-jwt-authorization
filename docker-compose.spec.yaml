@@ -37,5 +37,5 @@ services:
     environment:
       MONGO_INITDB_DATABASE: gymDo
     ports:
-      - 27017:27017
+      - 27018:27017
   
