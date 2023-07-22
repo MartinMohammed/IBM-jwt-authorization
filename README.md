@@ -1,3 +1,5 @@
+[![Checks](https://github.com/body-culture/jwt-authorization/actions/workflows/checks.yaml/badge.svg)](https://github.com/body-culture/jwt-authorization/actions/workflows/checks.yaml)
+
 # Auth API
 
 The Auth API is a secure authentication service that allows users to register, login, and manage their authentication tokens. It provides endpoints for user registration, user login, refreshing access tokens, and logging out. The API uses JSON Web Tokens (JWT) for authentication and Redis for managing refresh tokens.
