@@ -7,7 +7,7 @@ import authRouter from "./routers/authRouter";
 import cors from "cors";
 import fs from "fs";
 import path from "path";
-import verifyAccessToken from "./middlewares/verifyAccessToken";
+import verifyAccessTokenMiddleware from "./middlewares/verifyAccessTokenMiddleware";
 import healthRouter from "./routers/healthRouter";
 import swaggerRouter from "./routers/swaggerRouter";
 
@@ -23,7 +23,7 @@ const accessLogStream = fs.createWriteStream(
 );
 app.use(morgan("combined", { stream: accessLogStream }));
 
-app.get("/", verifyAccessToken, async (req, res, next) => {
+app.get("/", verifyAccessTokenMiddleware, async (req, res, next) => {
   res.send("Hello From express.");
 });
 app.use("/health", healthRouter);

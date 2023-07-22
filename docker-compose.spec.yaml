@@ -9,7 +9,6 @@ services:
       - 3001:3001
     volumes: 
       - ./server/src:/home/nodeUser/app/src:rw
-      - ./server/logs:/home/nodeUser/app/logs:rw
     depends_on: 
       - redis
       - mongodb

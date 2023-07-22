@@ -135,3 +135,29 @@ export function verifyRefreshToken(
     });
   });
 }
+/**
+ * Verifies the validity of the provided JSON Web Token (JWT) access token.
+ * This function performs the following steps to validate the token:
+ * 1. Decoding of the header & payload and signature
+ * 2. Signature verification (hash payload and header and compare with the provided signature)
+ * 3. Claims Validation (after signature is verified)
+ *
+ * @param {string} token - The JSON Web Token to be verified.
+ * @returns {Promise<JWTPayload>} - A Promise that resolves to the payload of the verified JWT
+ * if the token is valid. Otherwise, it rejects with an error message indicating the reason
+ * for token invalidity (e.g., "Unauthorized" for token verification failure).
+ */
+export function verifyAccessToken(token: string): Promise<JWTPayload> {
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, process.env.JWT_SIGNING_KEY, (err, payload) => {
+      if (err) {
+        const errorMessage =
+          err.name === "JsonWebTokenError" ? "Unauthorized" : err.name;
+        logger.warn("Received an invalid JWT Access token.");
+        reject(errorMessage);
+      }
+      logger.verbose("Access Token is valid.");
+      resolve(payload as JWTPayload);
+    });
+  });
+}

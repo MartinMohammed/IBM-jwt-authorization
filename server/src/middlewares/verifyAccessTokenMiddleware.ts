@@ -3,18 +3,21 @@ import createHttpError from "http-errors";
 import JWTPayload from "../customTypes/JWTPayload";
 import jwt from "jsonwebtoken";
 import logger from "../logger";
+import { verifyAccessToken } from "../utils/jwt";
 
 // Middleware
-function verifyAccessToken(
+async function verifyAccessTokenMiddleware(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) {
+  const authHeader = req.headers["authorization"];
+
   // If token is invalid, pass http error to next function
-  if (!req.headers["authorization"]) {
+  if (!authHeader) {
     return next(createHttpError.Unauthorized());
   }
-  const authHeader = req.headers["authorization"];
+
   // Format: Bearer XXX
   const bearerToken = authHeader.split(" ");
   const token = bearerToken[1];
@@ -24,18 +27,14 @@ function verifyAccessToken(
    * 2. Signature verification (hash payload and header and compare with prov. signature)
    * 3. Claims Validation (after signature is verfied)
    */
-  jwt.verify(token, process.env.JWT_SIGNING_KEY, (err, payload) => {
-    req.user = payload as JWTPayload;
-    if (err) {
-      const errorMessage =
-        err.name === "JsonWebTokenError" ? "Unauthorized" : err.name;
-      logger.warn("Received an invalid JWT Access token.");
-      return next(createHttpError.Unauthorized(errorMessage));
-    }
-    logger.verbose("Access Token is valid.");
-    // User is authorized.
+  try {
+    const payload = await verifyAccessToken(token);
+    // Payload is valid
+    req.user = payload;
     next();
-  });
+  } catch (error) {
+    next(createHttpError.Unauthorized((error as Error).message));
+  }
 }
 
-export default verifyAccessToken;
+export default verifyAccessTokenMiddleware;

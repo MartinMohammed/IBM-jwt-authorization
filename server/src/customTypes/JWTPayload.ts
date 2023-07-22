@@ -1,9 +1,7 @@
-/** This defines the structure of the jwt token paylaod */
-interface JWTPayload {
-  expiresIn: string; // Specifies when the token should expire
-  issuer: string; // Indicates the issuer of the token
-  subject: string; // Specifies the subject of the token, usually the user ID
-  audience: string; // Where the token is intended to be used
+import jwt from "jsonwebtoken";
+
+/** This defines the structure of the additional data and the regular jwt.payload we put inside the jwt token */
+interface JWTPayload extends jwt.JwtPayload {
   type: "refresh-token" | "access-token"; // The type of the token
 }
 
