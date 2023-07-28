@@ -17,10 +17,10 @@ The success of the WhatsApp Chatbot was impressive, as it garnered widespread in
 ### Quick navigation 
 
 
-- [Gym Occupancy Tracker Repository](https://github.com/MartinMohammed/IBM-whatsapp-occupancy-scraper)
+
 - [Svelte Frontend Dashboard Repository](https://github.com/MartinMohammed/IBM-whatsapp-bot-frontend)
 - [WhatsApp Backend Server Repository](https://github.com/MartinMohammed/IBM-whatsapp-bot-backend)
-- [Authorization Server Repository](https://github.com/MartinMohammed/IBM-jwt-authorization)
+- [Gym Occupancy Tracker Repository](https://github.com/MartinMohammed/IBM-whatsapp-occupancy-scraper)
 - [WhatsApp Middleware NPM Package](https://github.com/MartinMohammed/IBM-whatsapp-bot-middleware-npm)
 
 ## Gym Occupancy Tracker
@@ -113,13 +113,6 @@ For a comprehensive list of dependencies, refer to the `package.json` file.
 ## Contributing
 
 Contributions to the Auth API are welcome! If you encounter any issues or have suggestions for improvements, please feel free to submit a pull request.
-
-## License
-
-The Auth API is open-source software licensed under the [MIT License](https://opensource.org/licenses/MIT). The full license text is available in the `LICENSE` file.
-
----
-With this update, the section now contains additional information about the WhatsApp Bot Project, the responsibilities in the project, and the various components involved. The section also provides detailed information about the Auth API, including installation instructions, API endpoints, authentication mechanism, error handling, Swagger UI for documentation, dependencies, contributing guidelines, and licensing information. The section now serves as a comprehensive guide for anyone interested in using or contributing to the Auth API.
 
 
 # WhatsApp Middleware NPM Package
