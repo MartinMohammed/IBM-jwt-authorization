@@ -23,12 +23,6 @@ The success of the WhatsApp Chatbot was impressive, as it garnered widespread in
 - [Gym Occupancy Tracker Repository](https://github.com/MartinMohammed/IBM-whatsapp-occupancy-scraper)
 - [WhatsApp Middleware NPM Package](https://github.com/MartinMohammed/IBM-whatsapp-bot-middleware-npm)
 
-## Gym Occupancy Tracker
-
-The Gym Occupancy Tracker is a Python program that web-scrapes the Fitness Fabrik gym website to extract data about the current number of people training in the gym. It uses Beautiful Soup to parse the HTML and extract relevant data. The program also integrates with a Telegram bot to notify users when the gym occupancy meets their desired criteria.
-
-[Link to Gym Occupancy Tracker Repository](https://github.com/MartinMohammed/IBM-whatsapp-occupancy-scraper)
-
 ## Svelte Frontend Dashboard
 
 The Svelte Frontend Dashboard is a web application designed for the CRS team to interact with gym members and facilitate automated WhatsApp customer service. Built with Svelte, it utilizes websockets to fetch real-time data from the backend, including recent WhatsApp messages. The production version includes a permission system, enabling admin privileges and integration with Google's Dialogflow chatbot AI.
@@ -115,7 +109,13 @@ For a comprehensive list of dependencies, refer to the `package.json` file.
 Contributions to the Auth API are welcome! If you encounter any issues or have suggestions for improvements, please feel free to submit a pull request.
 
 
-# WhatsApp Middleware NPM Package
+## Gym Occupancy Tracker
+
+The Gym Occupancy Tracker is a Python program that web-scrapes the Fitness Fabrik gym website to extract data about the current number of people training in the gym. It uses Beautiful Soup to parse the HTML and extract relevant data. The program also integrates with a Telegram bot to notify users when the gym occupancy meets their desired criteria.
+
+[Link to Gym Occupancy Tracker Repository](https://github.com/MartinMohammed/IBM-whatsapp-occupancy-scraper)
+
+## WhatsApp Middleware NPM Package
 
 The WhatsApp Middleware Package is a highly successful npm package developed during my internship at IBM. It serves as a crucial component of the Fitness App Suite, enabling seamless integration with the WhatsApp Chatbot and real-time message communication.
 
